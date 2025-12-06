@@ -177,27 +177,52 @@
   </section>
 
   <!-- DEMO / CONTACT -->
-  <section id="demo" class="demo-section">
-    <div class="demo-card">
-      <h2>Request a Private Demo</h2>
-      <p>
-        Share a mission profile or dataset type, and we’ll tailor a walkthrough of
-        how EvoLearns can integrate into your workflows.
-      </p>
+<section id="demo" class="demo-section">
+  <div class="demo-card">
+    <h2>Request a Private Demo</h2>
+    <p>
+      Share a mission profile or dataset type, and we’ll tailor a walkthrough of
+      how EvoLearns can integrate into your workflows.
+    </p>
 
-      <!-- Static form – you can wire this to FastAPI or any backend later -->
-      <form class="demo-form">
-        <div class="form-row">
-          <input type="text" name="name" placeholder="Name" required />
-          <input type="email" name="email" placeholder="Work email" required />
-        </div>
-        <input type="text" name="org" placeholder="Organization / Unit" />
-        <textarea name="context" rows="4" placeholder="Briefly describe your mission or data environment"></textarea>
-        <button type="submit">Submit Request</button>
-        <p class="demo-note">Form is static for now – wire it to your FastAPI or email endpoint when ready.</p>
-      </form>
-    </div>
-  </section>
+    <!-- Sends to ir@evolearns.com via FormSubmit -->
+    <form
+      class="demo-form"
+      action="https://formsubmit.co/ir@evolearns.com"
+      method="POST"
+    >
+      <!-- FormSubmit config -->
+      <input type="hidden" name="_subject" value="New EvoLearns Demo Request" />
+      <input type="hidden" name="_captcha" value="false" />
+      <!-- Redirect back to your landing page after submit -->
+      <input
+        type="hidden"
+        name="_next"
+        value="https://evolearns.github.io/evo-igt-landing/?submitted=true#demo"
+      />
+      <!-- Optional: send as a nice HTML table -->
+      <input type="hidden" name="_template" value="table" />
+
+      <div class="form-row">
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="email" name="email" placeholder="Work email" required />
+      </div>
+
+      <input type="text" name="org" placeholder="Organization / Unit" />
+
+      <textarea
+        name="context"
+        rows="4"
+        placeholder="Briefly describe your mission or data environment"
+      ></textarea>
+
+      <button type="submit">Submit Request</button>
+      <p class="demo-note">
+        Your request will be sent directly to ir@evolearns.com.
+      </p>
+    </form>
+  </div>
+</section>
 
   <!-- FOOTER -->
   <footer class="footer">
