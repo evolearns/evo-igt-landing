@@ -200,13 +200,15 @@
         <!-- FormSubmit config -->
         <input type="hidden" name="_subject" value="New EvoLearns Demo Request" />
         <input type="hidden" name="_captcha" value="false" />
-        <!-- Redirect back to your landing page after submit -->
+
+        <!-- Redirect WITHOUT exposing form values in the URL -->
         <input
           type="hidden"
           name="_next"
           value="https://evolearns.github.io/evo-igt-landing/?submitted=true#demo"
         />
-        <!-- Optional: send as a nice HTML table -->
+
+        <!-- Optional: send as an HTML table -->
         <input type="hidden" name="_template" value="table" />
 
         <div class="form-row">
@@ -235,17 +237,23 @@
     <p>© 2025 EvoLearns. All Rights Reserved.</p>
   </footer>
 
-  <!-- Success message logic -->
+  <!-- Success message logic + URL cleanup -->
   <script>
     (function () {
       var params = new URLSearchParams(window.location.search);
-      if (params.get("submitted") === "true") {
+      var submitted = params.get("submitted");
+
+      if (submitted === "true") {
         var success = document.getElementById("demo-success");
         var note = document.getElementById("demo-note");
         if (success) success.style.display = "block";
         if (note) note.style.display = "none";
         var form = document.getElementById("demo-form");
         if (form) form.reset();
+
+        // Clean the URL (remove ?submitted=true) but keep the #demo anchor
+        var newUrl = window.location.origin + window.location.pathname + "#demo";
+        window.history.replaceState({}, "", newUrl);
       }
     })();
   </script>
