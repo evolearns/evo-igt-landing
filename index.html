@@ -181,35 +181,19 @@
     <div class="demo-card">
       <h2>Request a Private Demo</h2>
       <p>
-        Share a mission profile or dataset type, and we’ll tailor a walkthrough of
-        how EvoLearns can integrate into your workflows.
+        To schedule a demo, email us directly at
+        <a href="mailto:ir@evolearns.com" class="demo-email-link">ir@evolearns.com</a>
+        with a brief mission profile or dataset description.
       </p>
 
-      <!-- Success banner (hidden until JS shows it) -->
-      <p id="demo-success" class="demo-success" style="display: none;">
-        ✅ Request prepared. Your email client should open with the details filled in.
+      <p class="demo-note">
+        Suggested subject line: <strong>“EvoLearns Demo – IQT / Mission Partner”</strong>
       </p>
 
-      <!-- Local form, handled via JS -->
-      <form id="demo-form" class="demo-form">
-        <div class="form-row">
-          <input type="text" name="name" placeholder="Name" required />
-          <input type="email" name="email" placeholder="Work email" required />
-        </div>
-
-        <input type="text" name="org" placeholder="Organization / Unit" />
-
-        <textarea
-          name="context"
-          rows="4"
-          placeholder="Briefly describe your mission or data environment"
-        ></textarea>
-
-        <button type="submit">Submit Request</button>
-        <p id="demo-note" class="demo-note">
-          Your request will open a pre-filled email to ir@evolearns.com.
-        </p>
-      </form>
+      <a href="mailto:ir@evolearns.com?subject=EvoLearns%20Demo%20%E2%80%93%20IQT%20%2F%20Mission%20Partner"
+         class="cta-button">
+        Email ir@evolearns.com
+      </a>
     </div>
   </section>
 
@@ -217,47 +201,5 @@
   <footer class="footer">
     <p>© 2025 EvoLearns. All Rights Reserved.</p>
   </footer>
-
-  <!-- JS: handle form submit via mailto + show success -->
-  <script>
-    (function () {
-      var form = document.getElementById("demo-form");
-      if (!form) return;
-
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        var data = new FormData(form);
-        var name = (data.get("name") || "").toString();
-        var email = (data.get("email") || "").toString();
-        var org = (data.get("org") || "").toString();
-        var context = (data.get("context") || "").toString();
-
-        var subject = encodeURIComponent("New EvoLearns Demo Request");
-        var bodyLines = [
-          "New demo request from the EvoLearns IQT landing page.",
-          "",
-          "Name: " + name,
-          "Work email: " + email,
-          "Organization / Unit: " + org,
-          "",
-          "Mission / data environment:",
-          context
-        ];
-        var body = encodeURIComponent(bodyLines.join("\n"));
-
-        // Open the user's email client
-        window.location.href = "mailto:ir@evolearns.com?subject=" + subject + "&body=" + body;
-
-        // Show success banner and hide note
-        var success = document.getElementById("demo-success");
-        var note = document.getElementById("demo-note");
-        if (success) success.style.display = "block";
-        if (note) note.style.display = "none";
-
-        form.reset();
-      });
-    })();
-  </script>
 </body>
 </html>
