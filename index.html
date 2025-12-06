@@ -185,32 +185,13 @@
         how EvoLearns can integrate into your workflows.
       </p>
 
-      <!-- Success banner (hidden by default, shown when ?submitted=true) -->
+      <!-- Success banner (hidden until JS shows it) -->
       <p id="demo-success" class="demo-success" style="display: none;">
-        ✅ Request sent. We’ll follow up at the email you provided.
+        ✅ Request prepared. Your email client should open with the details filled in.
       </p>
 
-      <!-- Sends to ir@evolearns.com via FormSubmit -->
-      <form
-        id="demo-form"
-        class="demo-form"
-        action="https://formsubmit.co/ir@evolearns.com"
-        method="POST"
-      >
-        <!-- FormSubmit config -->
-        <input type="hidden" name="_subject" value="New EvoLearns Demo Request" />
-        <input type="hidden" name="_captcha" value="false" />
-
-        <!-- Redirect WITHOUT exposing form values in the URL -->
-        <input
-          type="hidden"
-          name="_next"
-          value="https://evolearns.github.io/evo-igt-landing/?submitted=true#demo"
-        />
-
-        <!-- Optional: send as an HTML table -->
-        <input type="hidden" name="_template" value="table" />
-
+      <!-- Local form, handled via JS -->
+      <form id="demo-form" class="demo-form">
         <div class="form-row">
           <input type="text" name="name" placeholder="Name" required />
           <input type="email" name="email" placeholder="Work email" required />
@@ -226,7 +207,7 @@
 
         <button type="submit">Submit Request</button>
         <p id="demo-note" class="demo-note">
-          Your request will be sent directly to ir@evolearns.com.
+          Your request will open a pre-filled email to ir@evolearns.com.
         </p>
       </form>
     </div>
@@ -237,24 +218,45 @@
     <p>© 2025 EvoLearns. All Rights Reserved.</p>
   </footer>
 
-  <!-- Success message logic + URL cleanup -->
+  <!-- JS: handle form submit via mailto + show success -->
   <script>
     (function () {
-      var params = new URLSearchParams(window.location.search);
-      var submitted = params.get("submitted");
+      var form = document.getElementById("demo-form");
+      if (!form) return;
 
-      if (submitted === "true") {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        var data = new FormData(form);
+        var name = (data.get("name") || "").toString();
+        var email = (data.get("email") || "").toString();
+        var org = (data.get("org") || "").toString();
+        var context = (data.get("context") || "").toString();
+
+        var subject = encodeURIComponent("New EvoLearns Demo Request");
+        var bodyLines = [
+          "New demo request from the EvoLearns IQT landing page.",
+          "",
+          "Name: " + name,
+          "Work email: " + email,
+          "Organization / Unit: " + org,
+          "",
+          "Mission / data environment:",
+          context
+        ];
+        var body = encodeURIComponent(bodyLines.join("\n"));
+
+        // Open the user's email client
+        window.location.href = "mailto:ir@evolearns.com?subject=" + subject + "&body=" + body;
+
+        // Show success banner and hide note
         var success = document.getElementById("demo-success");
         var note = document.getElementById("demo-note");
         if (success) success.style.display = "block";
         if (note) note.style.display = "none";
-        var form = document.getElementById("demo-form");
-        if (form) form.reset();
 
-        // Clean the URL (remove ?submitted=true) but keep the #demo anchor
-        var newUrl = window.location.origin + window.location.pathname + "#demo";
-        window.history.replaceState({}, "", newUrl);
-      }
+        form.reset();
+      });
     })();
   </script>
 </body>
