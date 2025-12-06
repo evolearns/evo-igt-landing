@@ -445,6 +445,17 @@ body {
   opacity: 0.65;
 }
 
+/* SUCCESS BANNER */
+.demo-success {
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(22, 163, 74, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  font-size: 13px;
+  color: #bbf7d0;
+}
+
 /* FOOTER */
 .footer {
   padding: 32px 40px 40px;
@@ -482,7 +493,7 @@ body {
   }
 
   .nav-links {
-    display: none; /* keep it super simple on mobile */
+    display: none; /* simple mobile nav */
   }
 
   .hero {
@@ -533,4 +544,3 @@ body {
     flex-direction: column;
   }
 }
-
